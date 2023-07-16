@@ -10,15 +10,58 @@
 
 可参考`KeyCenter.swift`  文件中  Agora APP ID. 和 Certificate 获取流程
 
-目前Demo中使用的如下所示，临时Token对应的频道名为 1234567890
+目前Demo中使用的如下所示，临时Token对应的频道名为 需要申请
 
 ```swift
-static let AppId: String = "91b4f7a60a874d369b7b9832f8c0f99c"
+static let AppId: String = ""
 
-static let Certificate: String? = "007eJxTYGDf8l2maxd34uvNDpv2mnL8NO/mtvfevTlaTmXrgojNS+oUGCwNk0zSzBPNDBItzE1SjM0sk8yTLC2MjdIskg3SLC2T1S4sSWkIZGR4oBvIysgAgSA+F4OhkbGJqZm5haUBAwMAvtge8Q=="
+static let Certificate: String? = ""
 ```
 
 ```objective-c
-[TTLiveMediator setupWithAppKey:@"4d2a07e8eff8cbef-04-ewdjn1"];
+[TTLiveMediator setupWithAppKey:@""];
+```
+
+### 3、代码参考
+
+代码在`TuTuBeautyVC`类中
+
+```objective-c
+//引入头文件
+#import "TTLiveMediator.h"
+#import "TTViewManager.h"
+
+// 初始化涂图
+    /**
+     * 登录控制台 - SDK -> 应用管理  -> 创建应用 -> 创建版本后即可获得对应的appKey
+     * 在应用管理界面 -> 资源管理 -> 我的资源库，将对应的资源点击打包按钮，然后点击打包资源 -> 打包下载，即可将对应的资源下载到本地。然后将下载的资源替换到TuSDKPulse.bundle 中即可
+     * TTBeauty : 特效处理模块
+     * TTResource : 依赖的资源(缩略图、icon、资源文件、国际化文件)
+     * TTView : UI展示
+     */
+[TTLiveMediator setupWithAppKey:@""];
+
+//设置参数
+[[TTLiveMediator shareInstance] setPixelFormat:TTVideoPixelFormat_BGRA];
+[[TTViewManager shareInstance] setBeautyTarget:[TTBeautyProxy transformObjc:[TTLiveMediator shareInstance]]];
+[[TTViewManager shareInstance] setupSuperView:self.view];
+
+//美颜回调方法
+- (BOOL)onCaptureVideoFrame:(AgoraOutputVideoFrame * _Nonnull)videoFrame sourceType:(AgoraVideoSourceType)sourceType;
+{
+    CVPixelBufferRef newPixelBuffer = [[[TTLiveMediator shareInstance] sendVideoPixelBuffer:videoFrame.pixelBuffer] getCVPixelBuffer];
+    if (newPixelBuffer)  {
+        videoFrame.type = 14;
+        videoFrame.pixelBuffer = newPixelBuffer;
+    }
+    return YES;
+}
+
+//资源销毁
+- (void)dealloc {
+    
+    [[TTLiveMediator shareInstance] destory];
+    [[TTViewManager shareInstance] destory];
+}
 ```
 

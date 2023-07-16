@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "DD6CB880-2B4A-43D1-AE24-5210303CF4AE"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E0CECC0-469E-421E-98ED-AB8D63CEECDE"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "APIExample/Examples/Advanced/ThirdBeautify/TuTuBeauty/TuTuBeautyVC.m"
+            startingColumnNumber = "66"
+            endingColumnNumber = "75"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "-initSDK"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
